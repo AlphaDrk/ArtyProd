@@ -1,0 +1,137 @@
+//Create a new virtual environment for your Django project by entering the following command in the command prompt:
+--python -m venv myenv
+
+//Activate the virtual environment by entering the following command in the command prompt:
+--myenv\Scripts\activate
+----------env-django\Scripts\activate
+
+//Install Django in the virtual environment by entering the following command in the command prompt:
+--pip install django
+
+//Create a new Django project by entering the following command in the command prompt:
+--django-admin startproject myproject
+
+///creer un application django 
+django-admin startapp accounts
+
+//Navigate to the new project directory by entering the following command in the command prompt:
+--cd myproject
+
+//Start the development server by entering the following command in the command prompt:
+--python manage.py runserver
+
+// vous pouvez créer un fichier models.py dans une application nommée "utilisateurs" et ajouter le code suivant:
+--from django.db import models
+	class Utilisateur(models.Model):
+    		nom = models.CharField(max_length=100)
+    		email = models.EmailField(max_length=254)
+   		mot_de_passe = models.CharField(max_length=100)
+
+//Une fois que vous avez créé vos modèles, vous pouvez générer les migrations pour les appliquer à la base de données:
+--python manage.py makemigrations
+//pour mettre a jour 
+--python manage.py migrate
+
+//Enfin, pour gérer votre base de données à partir de la ligne de commande, vous pouvez utiliser le shell interactif de Django:
+--python manage.py shell
+//Pour pouvoir manipuler les tables de la base de données, il faut importer les classes correspondante à partir du modèle. 
+>>> from applicationNom.models import ClasseNom1, ..
+
+//Vous pouvez maintenant utiliser les modèles que vous avez créés pour interagir avec la base de données. Par exemple, pour créer un nouvel utilisateur, vous pouvez exécuter le code suivant dans le shell interactif:
+>>>from utilisateurs.models import Utilisateur
+	u = Utilisateur(nom='John Doe', email='john.doe@example.com', mot_de_passe='secret')
+	u.save()
+
+//Pour insérer une nouvelle entrée dans la base de données, créez une nouvelle instance de votre modèle et appelez la méthode save():
+>>>from utilisateurs.models import Utilisateur
+	u = Utilisateur(nom='John Doe', email='john.doe@example.com', mot_de_passe='secret')
+	u.save()
+
+//Pour mettre à jour une entrée existante, récupérez l'instance de votre modèle que vous voulez mettre à jour, modifiez ses attributs, puis appelez la méthode save():
+>>>from utilisateurs.models import Utilisateur
+	u = Utilisateur.objects.get(id=1)
+	u.nom = 'Jane Doe'
+	u.save()
+
+//Pour supprimer une entrée, appelez la méthode delete() sur l'instance de votre modèle:
+>>>from utilisateurs.models import Utilisateur
+	u = Utilisateur.objects.get(id=1)
+	u.delete()
+
+//pour effectuer ces opérations sur plusieurs entrées en une seule fois. Par exemple, pour supprimer tous les utilisateurs dont le nom est "John Doe", vous pouvez utiliser la méthode filter() pour récupérer tous les utilisateurs correspondants, puis appeler la méthode delete() sur cet ensemble de résultats:
+>>>from utilisateurs.models import Utilisateur
+--Utilisateur.objects.filter(nom='John Doe').delete()
+
+//Afficher tous les enregistrements d’une table.
+>>> Classe.objects.all()
+>>>Classe.objects.all()[deb:fin:pas] 
+
+//Ajouter un enregistrement dans une table 
+>>> obj=Classe(attribut1=valeur1,attribut2=valeur2,…)
+>>>obj.save()
+
+//Modifier la valeur d’un attribut.
+>>> obj.attribut # afficher sa valeur
+>>>obj.attribut=nouvelleValeur
+>>>obj.save() 
+
+//Afficher les enregistrements correspondants à un attribut particulier (QuerySet)
+>>> Classe.objects.filter(attribut=valeur)
+>>>Classe.objets.filter(attribut__startswith=‘…’)
+
+//Afficher un seul enregistrement correspondant à une valeur unique.
+>>> obj= Classe.objects.get(pk=valeur)
+
+//Ajouter un ou plusieurs objets dans un champ de type ManyToMany
+>>> Classe.AttributMTM.add(objet1,objet2,…)
+
+//Supprimer un enregistrement.
+>>> obj=Classe.objects.get(id=1)
+>>> obj.delete()
+
+//Ajouter un ou plusieurs objets dans un champ ‘attributMTM’ de type ManyToMany
+>>> Classe.attributMTM.add(objet1,objet2,…)
+
+//Création d’un utilisateur administrateur
+>>>python manage.py createsuperuser
+	Username: admin 
+	Email address: admin@example.com
+	Password: **********
+
+//Démarrage du serveur de développement
+--python manage.py runserver
+
+//Lancement de l’interface d’administrationDans un navigateur 
+***lancer : http://127,0,0,1/admin/
+
+
+
+env-django\Scripts\activate
+cd env-django
+cd my_site
+python manage.py runserver
+
+
+Env_Project\Scripts\activate
+cd Env_Project
+cd ArtyProd_Project
+python manage.py runserver
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

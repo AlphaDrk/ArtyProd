@@ -1,0 +1,94 @@
+********test2******
+DECLARE
+  R_pp presencepart%ROWTYPE;
+  v_dd formation.dateDeb%TYPE;
+  v_df formation.dateFin%TYPE;
+  Exp_cleE exception;
+  Exp_cleP exception;
+  Exp_cleD exception;
+   pragma exception_init (Exp_cleE,-2291);
+      pragma exception_init (Exp_cleP,-0001);
+BEGIN
+  R_pp.numf := &Enter_Formation_Num;
+  R_pp.codepar := &Enter_Participant_Code;
+  R_pp.datepart := '&Enter_Date';
+  
+  select dateDeb, dateFin into v_dd, v_df from formation where numf = R_pp.numf;
+  
+  if(R_pp.datepart not between v_dd and v_df) then
+    raise Exp_cleD;
+  end if;
+  
+  insert into PRESENCEPART values (R_pp);
+  
+  EXCEPTION
+    when no_data_found then
+      DBMS_OUTPUT.PUT_LINE('Erreur : la formation spécifiée n''existe pas.');
+    when Exp_cleE THEN
+      DBMS_OUTPUT.PUT_LINE('Erreur : le participant spécifié n''existe pas.');
+    when Exp_cleP THEN
+      DBMS_OUTPUT.PUT_LINE('Erreur : la présence journalière du participant pour la formation existe déjà.');
+    when Exp_cleD THEN
+      DBMS_OUTPUT.PUT_LINE('Erreur : la date n''est pas incluse dans la période de la formation (' || v_dd ||' - '|| v_df ||').');
+END;
+********test1******
+DECLARE
+  CURSOR c_dep
+  IS
+    SELECT * FROM departement ;
+  ExpClPr  EXCEPTION;
+  ExClEt   EXCEPTION;
+  ExpCheck EXCEPTION;
+  pragma exception_init (ExpClPr, -0001);
+  pragma exception_init (ExpClEt, -2291);
+  pragma exception_init (ExpCheck,-2290);
+BEGIN
+  BEGIN
+    INSERT
+    INTO employe VALUES
+      (
+        &Enter_numEmp,
+        '&Enter_nomEmp',
+        '&Enter_fonction',
+        7788,
+        '16/11/81',
+        &Enter_salaire,
+        NULL,
+        30
+      );
+    DBMS_OUTPUT.PUT_LINE('Nouvel employe ajoute avec succes.');
+  EXCEPTION
+  WHEN ExpClPr THEN
+    DBMS_OUTPUT.PUT_LINE('Erreur : le num Employee existe.');
+  WHEN ExpClEt THEN
+    DBMS_OUTPUT.PUT_LINE('Erreur : le chef ou numDep n''existe pas.');
+  WHEN ExpCheck THEN
+    DBMS_OUTPUT.PUT_LINE('Commission sup�rieur au salaire ');
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('Erreur lors de l''ajout d''un nouvel employe: ' || SQLERRM);
+  END;
+  FOR rec_dep IN c_dep
+  LOOP
+    BEGIN
+      UPDATE departement
+      SET NbEMP =
+        (SELECT COUNT(*) FROM employe e WHERE e.numdep= departement.numdep);
+      DBMS_OUTPUT.PUT_LINE('Nombre d''employes dans le departement ' || rec_dep.numdep || ' mis a jour avec succes.'||'nbemp ='||rec_dep.nbemp);
+    EXCEPTION
+    WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('Erreur lors de la mise a jour du nombre d''employ?s pour le departement ' || rec_dep.numdep || ': ' || SQLERRM);
+    END;
+  END LOOP;
+  FOR rec_dep IN c_dep
+  LOOP
+    DBMS_OUTPUT.PUT_LINE('Departement ' || rec_dep.numdep || ': ' || rec_dep.nomdep|| ' - Nombre d''employes: ' || rec_dep.NbEmp);
+  END LOOP;
+EXCEPTION
+WHEN OTHERS THEN
+  DBMS_OUTPUT.PUT_LINE('Erreur: ' || SQLERRM);
+END;
+
+********test3******
+Grant  DBA 
+To test2 
+Identified By  test2;

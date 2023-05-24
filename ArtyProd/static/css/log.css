@@ -1,0 +1,144 @@
+body {
+  overflow: hidden; /* Hide scrollbars */
+    background-image: url(https://image.ibb.co/k8FMsv/computers.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .card {
+    max-width: 380px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease;
+    animation-fill-mode: forwards;
+  }
+  
+  .card:hover {
+    transform: scale(1.02);
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .logo {
+    max-width: 100px;
+    height: 100px;
+    overflow: hidden;
+  }
+  
+  .logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .card-body {
+    padding: 30px;
+  }
+  
+  .card-title {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #4CAF50;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .reconnect-link {
+    text-decoration: underline;
+  }
+  
+  .left-link {
+    color: blue;
+    float: left;
+  }
+  
+  .right-link {
+    color: red;
+    float: right;
+  }
+  
+  .form label {
+    display: block;
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .form input[type="text"],
+  .form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    color: #333333;
+    font-size: 14px;
+  }
+  
+  .form .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    animation: slideIn 0.5s ease;
+    animation-fill-mode: forwards;
+  }
+  
+  .btn:hover {
+    background-color: #53a757;
+  }
+  .alert-danger {
+    color: red;
+  }
+  
+  small {
+    display: block;
+    margin-top: 20px;
+    color: #ccc;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  small a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+  
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+    }
+  }

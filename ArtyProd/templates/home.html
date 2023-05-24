@@ -1,0 +1,409 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ArtyProd</title>
+  <link rel='stylesheet'
+    href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-...=" />
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/stylesH.css' %}">
+
+</head>
+
+<body>
+  <!-- partial:index.partial.html -->
+  <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top">
+    <div class="container">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+        data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'home' %}"><b>ArtyProd</b></a>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#home">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#services">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#team">Team</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#portfolio">Portfolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+
+          {% if user.is_authenticated %}
+            {% if is_admin %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Déconnexion</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/admin/">{{ user }}</a>
+              </li>
+            {% elif is_personnel %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Déconnexion</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/admin/">{{ user }}</a>
+              </li>
+            {% elif is_client %}
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="{% url 'myprojects'  %}">My Project</a>
+              </li> -->
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Déconnexion</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'myprofile' user.id %}">{{ user.username }}</a>
+              </li>
+            {% endif %}
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Connexion</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Home section -->
+  <section id="home">
+    <div class="parallax-overlay"></div>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 text-center">
+          <div class="main-info">
+            <h2>ArtyProd</h2>
+            <h3>Creative Design Agency TN</h3>
+            <div class="console-container"><span id="console-text"
+                data-text="Give your business the perfect user interface, Let us design the future of your business"></span>
+              <div class="console-underscore" id="console">&#95;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- slogans section -->
+  <section id="slogans">
+    <div class="parallax-overlay darker"></div>
+    <div class="container-fluid">
+      <h2>Why choose Us?</h2>
+      <h3>We focus on delivering high-quality and scalable design experiences.</h3>
+      <ul>
+        <b>
+          <li>User-Centered Design Agency</li>
+        </b>
+        <li>We follow the UCD process in which designers focus on the needs of the target audience, designing
+          experiences, and every aspect of your business requirements.</li>
+
+
+        <b>
+          <li>Agile Methodology</li>
+        </b>
+        <li>An iterative and incremental approach to design and development. The agile process is an excellent way to
+          accommodate changes in requirements.</li>
+
+        <b>
+          <li>Innovative work culture</li>
+        </b>
+        <li>We have hands-on experience in deploying innovative and customized solutions for various industries.</li>
+
+
+        <b>
+          <li>Timely Delivery</li>
+        </b>
+        <li>We follow the timelines and make sure that each iteration of the design process executes when it’s expected
+          to.</li>
+
+
+        <b>
+          <li>Quality Design</li>
+        </b>
+        <li>We will design your product to the highest professional standards using best practice approaches, resulting
+          in increased data consistency and reliability.</li>
+
+
+        <b>
+          <li>Smart Technology</li>
+        </b>
+        <li>We actively seek new technologies to provide great, cutting-edge solutions that bring real value and go
+          above and beyond expectations.</li>
+      </ul>
+    </div>
+    <br>
+  </section>
+
+  <!-- Services section -->
+  <section id="services">
+    <div class="container">
+      <h2>Our Services</h2>
+      {% for service in services %}
+      <div class="row">
+        <div class="col-12 col-sm-6">
+          <img class="img-fluid rounded" src="/media/{{service.Img}}" alt="">
+        </div>
+        <div class="col-12 col-sm-6">
+          <h3 class="text-center">{{ service.type }}</h3>
+          <p>{{ service.description }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- Team section -->
+  <section id="team">
+    <div class="container">
+      <h2>Meet our Experts</h2>
+      <div class="row team-box">
+        {% for person in personnel %}
+        <div class="team-item">
+          <img class="img-fluid rounded" src="/media/{{person.Img}}" alt="">
+          <div class="mask">
+            <h3 class="text-center">{{ person.nom }}</h3>
+            <p> {{ person.skill }} </p>
+            <div class="social-links">
+              <a href="{{ person.lien_linkedIn }}" class=""><i class="fa fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio section -->
+  <section id="portfolio">
+    <div class="container">
+      <h2>ArtyProd Portfolio</h2>
+      <p>ArtyProd helps you make your business stand out by providing unique designs. Start a project with us.</p>
+      <div class="row portfolio-box">
+        {% for p in projets %}
+        <div class="portfolio-item">
+          <img class="img-fluid" src="/media/{{p.Img}}" alt="Tic Tac Toe">
+          <div class="mask">
+            {% if not p.acheve %}
+            <i class="fas fa-times-circle" style="color: red;text-align: right;"></i>
+            {% else %}
+            <i class="fas fa-check-circle" style="color: green;text-align: right;"></i>
+            {% endif %}
+            <h3>{{ p.libelle }}</h3>
+            <ul>
+              <br />
+              <li>{{ p.date_debut }}</li>
+              <li>{{ p.date_fin }}</li>
+              <br />
+            </ul>
+            <i>{{ p.rate }}</i>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- About section -->
+  <section id="about">
+    <div class="container">
+      <h2>About Us</h2>
+      <div class="row">
+        <div class="col-12 col-sm-6">
+          <img class="img-fluid rounded"
+            src="https://s3.amazonaws.com/blog.invisionapp.com/uploads/2014/12/design-review.jpg" alt="">
+        </div>
+        <div class="col-12 col-sm-6">
+          <p>Fineart, a brand of Cabot Technology Solutions – a value-based Product Engineering IT firm delivering
+            high-value and robust solutions using cutting-edge technologies.
+            Our team of designers, strategists, developers, and project managers work together to create outstanding
+            interactive designs on time and on budget.
+            We are passionate about creating the best user experience possible and exceeding expectations with our
+            clients. </p>
+          <p>We specialize in UX Research, UX UI Design, UX Strategy & Audit for web and mobile apps with an emphasis on
+            crafting a better user experience for businesses to stand out online.
+            Fineart’s Creative Team will guide your business along this journey by making sure each step meets
+            expectations from start to finish – from ideation to launch.</p>
+          </div>
+            <!-- Insert the Google Maps embed code here -->
+          <div style="width: 100%; height: 400px;">
+            <iframe
+            width="100%"
+            height="100%"
+            frameborder="0"
+            style="border:0"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyC0Aq5qPOurIKQVrITcaWxBkI9oiGOicgk
+            &q=Space+Needle,Seattle+WA"
+          allowfullscreen > 
+            </iframe>
+          </div>
+    </div>
+  </section>
+  {% if user.is_authenticated %}
+  {% if is_admin or is_personnel %}
+    <!-- Contact section -->
+    <section id="contact">
+      <div class="parallax-overlay"></div>
+      <div class="container">
+        <h2>Contact Client</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <form method="post" class="contact-form" action="{% url 'contact_user' %}">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6">
+                  <input class="form-item" type="text" name="name" placeholder="Your Name" value="" size="50">
+                </div>
+                <div class="col-md-6">
+                  <input class="form-item" type="text" name="subject" placeholder="Your Subject" value="" size="50">
+                </div>
+                <div class="col-md-12">
+                  <input class="form-item" type="email" name="email" placeholder="Your Working Email" value="" size="50">
+                </div>
+                <div class="col-md-12">
+                  <input class="form-item" type="number" name="phone" placeholder="Your Actual Phone Number" value="" size="80">
+                </div>
+                <div class="col-md-12">
+                  <textarea class="form-item" name="message" id="message" placeholder="Enter Your Message Or Query"></textarea>
+                </div>
+                <div class="col-md-12">
+                  <input class="btn-submit" type="submit" value="Send">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-6">
+            <h3>Need Contact Client ?</h3>
+            <p>Connect with the Client.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% else %}
+    <!-- Contact section -->
+  <section id="contact">
+  <div class="parallax-overlay"></div>
+  <div class="container">
+    <h2>Contact Us</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <form method="post" class="contact-form" action="{% url 'contact_us' %}">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6">
+              <input class="form-item" type="text" name="name" placeholder=" Your Name" value="" size="50">
+            </div>
+            <div class="col-md-6">
+              <input class="form-item" type="text" name="subject" placeholder=" Your Subject" value="" size="50">
+            </div>
+            <div class="col-md-12">
+              <input class="form-item" type="email" name="email" placeholder="Your Working Email" value="" size="50">
+            </div>
+            <div class="col-md-12">
+              <input class="form-item" type="number" name="phone" placeholder="Your Actual Phone Number" value=""
+                size="80">
+            </div>
+            <div class="col-md-12">
+              <textarea class="form-item" name="message" id="message" placeholder="Enter Your Message Or Query"></textarea>
+            </div>
+            <div class="col-md-12">
+              <input class="btn-submit" type="submit" value="Send">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <h3>Interested in working with us?</h3>
+        <p>Connect with the best UX design agency.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% else %}
+<!-- Contact section -->
+  <section id="contact">
+  <div class="parallax-overlay"></div>
+  <div class="container">
+    <h2>Contact Us</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <form method="post" class="contact-form" action="{% url 'contact_us' %}">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6">
+              <input class="form-item" type="text" name="name" placeholder=" Your Name" value="" size="50">
+            </div>
+            <div class="col-md-6">
+              <input class="form-item" type="text" name="subject" placeholder=" Your Subject" value="" size="50">
+            </div>
+            <div class="col-md-12">
+              <input class="form-item" type="email" name="email" placeholder="Your Working Email" value="" size="50">
+            </div>
+            <div class="col-md-12">
+              <input class="form-item" type="number" name="phone" placeholder="Your Actual Phone Number" value=""
+                size="80">
+            </div>
+            <div class="col-md-12">
+              <textarea class="form-item" name="message" id="message" placeholder="Enter Your Message Or Query"></textarea>
+            </div>
+            <div class="col-md-12">
+              <input class="btn-submit" type="submit" value="Send">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <h3>Interested in working with us?</h3>
+        <p>Connect with the best UX design agency.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+
+  <!-- Site footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-sm-6 col-xs-12">
+          <p class="copyright-text">Copyright &copy; 2023 All Rights Reserved by
+            <a href="http://127.0.0.1:8000/ArtyProd">ArtyProd</a>.
+          </p>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <ul class="social-icons">
+            <li><a class="facebook" href="https://www.facebook.com/groups/229294091474149"><i class="fa fa-facebook"></i></a></li>
+            <li><a class="twitter" href="https://twitter.com/PopBase"><i class="fa fa-twitter"></i></a></li>
+            <li><a class="linkedin" href="https://www.linkedin.com/company/immigrant-qu%C3%A9bec/"><i class="fa fa-linkedin"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script>
+  <script src="{% static 'js/scriptH.js' %}"></script>
+
+</body>
+
+</html>

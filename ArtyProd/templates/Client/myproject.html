@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ArtyProd</title>
+  <link rel='stylesheet'
+    href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-...=" />
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/stylesH.css' %}">
+
+</head>
+
+<body>
+  <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top">
+    <div class="container">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+        data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'home' %}"><b>ArtyProd</b></a>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'myprojects' %}">My Project</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'project-request' %}">Project Request</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'project-rep' %}">Project Status</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'myprofile' user_id=request.user.id %}">My Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <h3 class="title">My Project</h3>
+
+    <div class="products-container">
+      {% for project in projects %}
+      <div class="products" data-name="p-{{ project.id }}">
+        <img src="/media/{{ project.Img }}" alt="">
+        <h3 id="project-title-{{ project.id }}">{{ project.libelle }} {{ project.rate }}</h3>
+        <div class="price">
+          {{ project.date_debut }}<br>
+          {{ project.date_fin }}<br>
+          {% if not project.acheve %}
+          <i class="fas fa-times-circle" style="color: red;text-align: right;"></i>
+          {% else %}
+          <i class="fas fa-check-circle" style="color: green;text-align: right;"></i>
+          {% endif %}
+        </div>
+      </div>
+      {% empty %}
+      <li>No projects found.</li>
+      {% endfor %}
+    </div>
+
+    <div class="products-preview">
+      {% for project in projects %}
+      <div class="preview" data-target="p-{{ project.id }}">
+        <i class="fas fa-times"></i>
+        <img src="/media/{{ project.Img }}" alt="">
+        <h3>{{ project.libelle }}</h3>
+        <p>How satisfied are you?</p>
+        <form method="POST" action="{% url 'update_project' project.id %}">
+          {% csrf_token %}
+          <input type="hidden" name="project_id" value="{{ project.id }}">
+          <select name="rate">
+            {% for option in project.TYPE_CHOICES %}
+            <option value="{{ option.0 }}">{{ option.1 }}</option>
+            {% endfor %}
+          </select><br>
+          <div class="buttons">
+            <button type="submit" class="btn btn-outline-secondary">Rate</button>
+          </div>
+        </form>
+      </div>
+      {% endfor %}
+    </div>
+    
+  <!-- Site footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-sm-6 col-xs-12">
+          <p class="copyright-text">Copyright &copy; 2023 All Rights Reserved by
+            <a href="http://127.0.0.1:8000/ArtyProd">ArtyProd</a>.
+          </p>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <ul class="social-icons">
+            <li><a class="facebook" href="https://www.facebook.com/groups/229294091474149"><i class="fa fa-facebook"></i></a></li>
+            <li><a class="twitter" href="https://twitter.com/PopBase"><i class="fa fa-twitter"></i></a></li>
+            <li><a class="linkedin" href="https://www.linkedin.com/company/immigrant-qu%C3%A9bec/"><i class="fa fa-linkedin"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script>
+  <script src="{% static 'js/scriptH.js' %}"></script>
+  <script>
+    const previewContainer = document.querySelector(".products-preview");
+    const previewBox = document.querySelectorAll(".preview");
+
+    document.querySelectorAll(".products-container .products").forEach((product) => {
+      product.addEventListener("click", () => {
+        previewContainer.style.display = "flex";
+        let name = product.getAttribute("data-name");
+
+        previewBox.forEach((preview) => {
+          let target = preview.getAttribute("data-target");
+
+          if (name == target) {
+            preview.classList.add("active");
+          }
+        })
+      })
+    })
+
+    previewBox.forEach((product) => {
+      product.querySelector(".fa-times").onclick = () => {
+        product.classList.remove("active");
+        previewContainer.style.display = "none";
+      }
+    })
+  </script>
+</body>
+
+</html>

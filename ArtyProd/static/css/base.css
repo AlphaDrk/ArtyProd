@@ -1,0 +1,276 @@
+* {
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+body {
+  background: #2A3134;
+  max-width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  height: auto;
+  font-family: sans-serif;
+  color: black;
+}
+
+/*media queries*/
+@media screen and (min-width: 0px) {
+  .toggle-nav {display: block;}
+  #main-ul {display: none;}
+}
+
+@media screen and (min-width: 700px) {
+  .toggle-nav {display: none;}
+  #main-ul {display: flex;}
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+    overflow:hidden;
+}
+
+a {
+  text-decoration: none;
+  color: currentcolor;
+}
+
+body {
+  background: #e5ded8;
+
+}
+
+.container {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.title {
+  font-size: 3.5rem;
+  color: aquamarine;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.products-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 2rem;
+  height: auto;
+}
+
+.products {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  outline: 0.1rem solid #ccc;
+  outline-offset: -1.5rem;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.products:hover {
+  outline: 0.2rem solid #222;
+  outline-offset: 0;
+}
+
+.products img {
+  height: 25rem;
+}
+
+.products:hover img {
+  transform: scale(0.9);
+}
+
+.products h3 {
+  padding: 0.5rem 0;
+  font-size: 2rem;
+  color: aqua;
+}
+
+.products:hover h3 {
+  color: #27ae60;
+}
+
+.products .price {
+  color: #444;
+  font-size: 2.5rem;
+}
+
+.products-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview {
+  display: none;
+  padding: 2rem;
+  text-align: center;
+  background: #fff;
+  position: relative;
+  margin: 2rem;
+  width: auto+40px;
+  height: auto+40px;
+}
+
+.preview img {
+  height: 20rem;
+}
+input,select{
+    color: #444;
+    font-size: large;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+    margin-bottom: 10px; /* Add margin-bottom for spacing */
+    size: 50px;
+}
+
+input:hover ,select:hover {
+    border-color: aquamarine;
+}
+.preview .fa-times {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  cursor: pointer;
+  color: #444;
+  font-size: 4rem;
+  transition: all 0.4s;
+}
+
+.preview .fa-times:hover {
+  transform: rotate(90deg);
+}
+
+.preview h3 {
+  color: #444;
+  padding: .5rem 0;
+  font-size: 2.5rem;
+}
+
+.preview .stars {
+  padding: 1rem 0;
+  font-size: 1.7rem;
+}
+
+.preview .stars i {
+  color: #27ae60;
+}
+
+.preview p {
+  line-height: 1.5;
+  /*   padding:1rem 0; */
+  font-size: 1.6rem;
+  color: #777;
+}
+
+.preview .price {
+  /*   padding:0.5rem 0; */
+  font-size: 2.5rem;
+  color: #27ae60;
+}
+
+.preview .buttons {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.preview .buttons a {
+  flex: 1 1 16rem;
+  padding: 1rem;
+  font-size: 1.8rem;
+  color: #444;
+  border: 0.1rem solid #444;
+  transition: all 0.3s;
+}
+
+.preview .buttons a.card {
+  background: #444;
+  color: #fff;
+}
+
+.preview .buttons a.card:hover {
+  background: #111;
+}
+
+.preview .buttons a.buy:hover {
+  background: #444;
+  color: #fff;
+}
+
+.preview.active {
+  display: inline-block;
+}
+
+.animated-form {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: slideInDown 0.5s ease;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  font-size: large;
+  color:#444;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  background-color: #e5ded8;
+  font-size:large;
+  width: 100%;
+  font-weight: bold;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.submit-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  size: 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+@keyframes slideInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

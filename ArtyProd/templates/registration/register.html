@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ArtyProd</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/log.css' %}">
+</head>
+
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <p class="logo">
+          <img src="{% static '../media/media/login.png' %}" alt="Logo">
+        </p>
+        <h2 class="card-title">Sign Up</h2>
+      </div>
+      <div class="card-body">
+        <form method="post" class="form">
+          {% csrf_token %}
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+              {% for error in form.non_field_errors %}
+                {{ error }}
+              {% endfor %}
+            </div>
+          {% endif %}
+          <div class="form-group">
+            {% for field in form %}
+              <label class="form-label">{{ field.label_tag }}</label>
+              {{ field }}
+              {% for error in field.errors %}
+                <p class="alert alert-danger">{{ error }}</p>
+              {% endfor %}
+            {% endfor %}
+          </div>
+          <button type="submit" class="btn btn-primary animated-button">Login</button>
+        </form>
+        <div class="text-center">
+          <small>
+            Already have an account? <a href="{% url 'login' %}" class="signup-login-link">Sign In</a><br>
+          </small>
+        </div>
+      </div>
+      <h6 style="text-align: center;color: aliceblue;">Copyright ® 2023 Nass&Sou. all rigths reserved.</h6>
+    </div>
+  </div>
+</body>
+
+</html>
